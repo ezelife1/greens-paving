@@ -237,14 +237,28 @@
   }
 }
 
-/* Floating mobile Call + WhatsApp: hidden throughout hero, shown only after hero */
-@media(max-width:700px){
+
+/* FINAL MOBILE FIX:
+   - Header stays dark/solid
+   - Floating Call/WhatsApp hidden through full hero
+   - Floating Call/WhatsApp appears once hero is passed
+*/
+@media (max-width:700px){
+  .site-header,
+  .site-header.is-scrolled{
+    background:rgba(5,13,8,.94) !important;
+    -webkit-backdrop-filter:blur(12px) saturate(125%) !important;
+    backdrop-filter:blur(12px) saturate(125%) !important;
+    border-bottom-color:rgba(255,255,255,.10) !important;
+    box-shadow:0 6px 22px rgba(0,0,0,.20) !important;
+  }
+
   .mobile-contact{
-    display:grid;
+    display:grid !important;
     opacity:0 !important;
     visibility:hidden !important;
     pointer-events:none !important;
-    transform:translateY(calc(100% + env(safe-area-inset-bottom))) !important;
+    transform:translateY(100%) !important;
     transition:opacity .22s ease, transform .22s ease, visibility .22s ease !important;
   }
 
