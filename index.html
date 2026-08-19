@@ -10,6 +10,27 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
+
+<style>
+/* FLOATING MOBILE CONTACT — HIDDEN ON HERO, VISIBLE AFTER HERO */
+@media (max-width:700px){
+  .mobile-contact{
+    display:grid !important;
+    opacity:0 !important;
+    visibility:hidden !important;
+    pointer-events:none !important;
+    transform:translateY(100%) !important;
+    transition:opacity .2s ease, transform .2s ease, visibility .2s ease !important;
+  }
+  .mobile-contact.after-hero{
+    opacity:1 !important;
+    visibility:visible !important;
+    pointer-events:auto !important;
+    transform:translateY(0) !important;
+  }
+}
+</style>
+
 </head>
 <body>
 <header class="site-header" id="top">
@@ -94,5 +115,32 @@
 <footer><a class="brand footer-brand" href="#top"><span class="brand-leaf" aria-hidden="true">◢</span><span><strong>GREEN'S</strong><small>PAVING • LANDSCAPING • ROOFING</small></span></a><p>Swansea & surrounding areas</p><p>© 2026 Green's</p></footer>
 <div class="mobile-contact"><a href="tel:07884005925"><small>CALL</small><b>07884 005925</b></a><a href="https://wa.me/447884005925?text=Hi%20Green%27s%2C%20I%27d%20like%20a%20free%20quote." target="_blank" rel="noopener"><small>WHATSAPP</small><b>GET A QUOTE</b></a></div>
 <script src="script.js"></script>
+
+<script>
+(function(){
+  const hero = document.querySelector('.hero');
+  const bar = document.querySelector('.mobile-contact');
+  if (!hero || !bar) return;
+
+  function updateFloatingBar(){
+    if (window.innerWidth > 700){
+      bar.classList.remove('after-hero');
+      return;
+    }
+
+    const heroBottom = hero.getBoundingClientRect().bottom;
+    if (heroBottom <= 0){
+      bar.classList.add('after-hero');
+    } else {
+      bar.classList.remove('after-hero');
+    }
+  }
+
+  updateFloatingBar();
+  window.addEventListener('scroll', updateFloatingBar, {passive:true});
+  window.addEventListener('resize', updateFloatingBar);
+})();
+</script>
+
 </body>
 </html>
